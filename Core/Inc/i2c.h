@@ -1,9 +1,9 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    i2c.h
-  * @brief   This file contains all the function prototypes for
-  *          the i2c.c file
+  * @brief   I2C1 configuration header file
+  *          This file contains all the function prototypes for the i2c.c file
+  * @author  HAL Team
   ******************************************************************************
   * @attention
   *
@@ -16,8 +16,6 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __I2C_H__
 #define __I2C_H__
 
@@ -28,20 +26,26 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/* USER CODE BEGIN Includes */
+/* External variables --------------------------------------------------------*/
 
-/* USER CODE END Includes */
-
+/**
+  * @brief I2C1句柄定义
+  * @note  I2C1用于与OLED显示屏通信
+  *        SCL: PB6, SDA: PB7
+  */
 extern I2C_HandleTypeDef hi2c1;
 
-/* USER CODE BEGIN Private defines */
+/* Function prototypes -------------------------------------------------------*/
 
-/* USER CODE END Private defines */
-
+/**
+  * @brief  I2C1初始化函数
+  * @retval None
+  * @note   配置I2C1为快速模式(400KHz)
+  *         用于控制OLED显示屏
+  */
 void MX_I2C1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
@@ -49,4 +53,3 @@ void MX_I2C1_Init(void);
 #endif
 
 #endif /* __I2C_H__ */
-

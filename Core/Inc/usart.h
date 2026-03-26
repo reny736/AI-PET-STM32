@@ -1,9 +1,9 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    usart.h
-  * @brief   This file contains all the function prototypes for
-  *          the usart.c file
+  * @brief   USART1 configuration header file
+  *          This file contains all the function prototypes for the usart.c file
+  * @author  HAL Team
   ******************************************************************************
   * @attention
   *
@@ -16,8 +16,6 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USART_H__
 #define __USART_H__
 
@@ -28,20 +26,25 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/* USER CODE BEGIN Includes */
+/* External variables --------------------------------------------------------*/
 
-/* USER CODE END Includes */
-
+/**
+  * @brief USART1句柄定义
+  * @note  USART1用于与上位机通信，支持115200波特率
+  */
 extern UART_HandleTypeDef huart1;
 
-/* USER CODE BEGIN Private defines */
+/* Function prototypes -------------------------------------------------------*/
 
-/* USER CODE END Private defines */
-
+/**
+  * @brief  USART1初始化函数
+  * @retval None
+  * @note   配置USART1为UART模式，115200-8-N-1
+  *         TX引脚: PA9, RX引脚: PA10
+  */
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
@@ -49,4 +52,3 @@ void MX_USART1_UART_Init(void);
 #endif
 
 #endif /* __USART_H__ */
-

@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /* 全局变量定义 */
-static UART_Buffer_t uart_buffer = {0};
+static UART_Buffer_t uart_buffer = {0};  // 串口缓冲区结构体，用于管理接收和发送数据
 
 /**
   * @brief  串口初始化
@@ -144,4 +144,3 @@ void BSP_UART_TxCpltCallback(UART_HandleTypeDef *huart)
         uart_buffer.tx_complete = 1;
     }
 }
-

@@ -1,9 +1,9 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    gpio.h
-  * @brief   This file contains all the function prototypes for
-  *          the gpio.c file
+  * @brief   GPIO configuration header file
+  *          This file contains all the function prototypes for the gpio.c file
+  * @author  HAL Team
   ******************************************************************************
   * @attention
   *
@@ -16,8 +16,6 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __GPIO_H__
 #define __GPIO_H__
 
@@ -28,22 +26,20 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/* USER CODE BEGIN Includes */
+/* Function prototypes --------------------------------------------------------*/
 
-/* USER CODE END Includes */
-
-/* USER CODE BEGIN Private defines */
-
-/* USER CODE END Private defines */
-
+/**
+  * @brief  GPIO初始化函数
+  * @retval None
+  * @note   配置GPIO引脚的模式和参数
+  *         本项目中用于配置W25Q64 Flash的片选引脚(PA4)
+  */
 void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
 #endif /*__ GPIO_H__ */
-

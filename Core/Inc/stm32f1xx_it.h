@@ -1,8 +1,9 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    stm32f1xx_it.h
-  * @brief   This file contains the headers of the interrupt handlers.
+  * @brief   Interrupt handlers header file
+  *          This file contains the headers of the interrupt handlers
+  * @author  HAL Team
   ******************************************************************************
   * @attention
   *
@@ -15,9 +16,6 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
-
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F1xx_IT_H
 #define __STM32F1xx_IT_H
 
@@ -25,36 +23,68 @@
 extern "C" {
 #endif
 
-/* Private includes ----------------------------------------------------------*/
+/* Includes ------------------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void DebugMon_Handler(void);
-void TIM4_IRQHandler(void);
-/* USER CODE BEGIN EFP */
 
+/**
+  * @brief  Non-maskable interrupt handler
+  * @retval None
+  */
+void NMI_Handler(void);
+
+/**
+  * @brief  Hard fault interrupt handler
+  * @retval None
+  */
+void HardFault_Handler(void);
+
+/**
+  * @brief  Memory management fault handler
+  * @retval None
+  */
+void MemManage_Handler(void);
+
+/**
+  * @brief  Prefetch fault/memory access fault handler
+  * @retval None
+  */
+void BusFault_Handler(void);
+
+/**
+  * @brief  Undefined instruction/illegal state handler
+  * @retval None
+  */
+void UsageFault_Handler(void);
+
+/**
+  * @brief  Debug monitor handler
+  * @retval None
+  */
+void DebugMon_Handler(void);
+
+/**
+  * @brief  TIM4 global interrupt handler
+  * @retval None
+  * @note   TIM4用于HAL库的毫秒级tick计数
+  */
+void TIM4_IRQHandler(void);
+
+/* USER CODE BEGIN EFP */
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

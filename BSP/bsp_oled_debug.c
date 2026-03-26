@@ -1,16 +1,11 @@
 /**
  ******************************************************************************
  * @file    bsp_oled_debug.c
- * @author  fire
- * @version V1.0
- * @date    2024-xx-xx
+ * @author  HAL Team
  * @brief   OLED显示驱动
  ******************************************************************************
  * @attention
  *
- * 实现平台:野火 F103 STM32 开发板
- * 论坛    :http://www.firebbs.cn
- * 淘宝    :https://fire-stm32.taobao.com
  *
  ******************************************************************************
  */
@@ -22,12 +17,20 @@
 extern I2C_HandleTypeDef hi2c1;
 
 
-/* OLED写数据函数 */
+/**
+  * @brief  OLED写数据函数
+  * @param  data: 要写入的数据
+  * @retval None
+  * @note   根据IIC_SELECT宏选择使用硬件IIC或软件IIC
+  *         硬件IIC使用HAL库函数，软件IIC使用GPIO模拟
+  */
 void Oled_Write_Data(uint8_t data)
 {
 #if IIC_SELECT
+    /* 使用硬件IIC写入数据 */
     HAL_I2C_Mem_Write(&hi2c1, OLED_ID, OLED_WR_DATA, I2C_MEMADD_SIZE_8BIT, &data, 1, 0x100);
 #else
+    /* 使用软件IIC写入数据 */
     IIC_Start();
     IIC_SendByte(OLED_ID);
     /* 等待应答 */
@@ -45,12 +48,19 @@ void Oled_Write_Data(uint8_t data)
 #endif
 }
 
-/* OLED写命令函数 */
+/**
+  * @brief  OLED写命令函数
+  * @param  cmd: 要写入的命令
+  * @retval None
+  * @note   向OLED发送控制命令，如显示开关、对比度设置等
+  */
 void Oled_Write_Cmd(uint8_t cmd)
 {
 #if IIC_SELECT
+    /* 使用硬件IIC写入命令 */
     HAL_I2C_Mem_Write(&hi2c1, OLED_ID, OLED_WR_CMD, I2C_MEMADD_SIZE_8BIT, &cmd, 1, 0x100);
 #else
+    /* 使用软件IIC写入命令 */
     IIC_Start();
     IIC_SendByte(OLED_ID);
     /* 等待应答 */
@@ -68,30 +78,37 @@ void Oled_Write_Cmd(uint8_t cmd)
 #endif
 }
 
+/**
+  * @brief  OLED初始化函数
+  * @param  None
+  * @retval None
+  * @note   初始化OLED显示屏，设置显示模式、对比度、滚动等参数
+  */
 void OLED_Init(void)
 {
     /* 设置显示开/关
-     * AE--->显示关
-     * AF--->显示开(正常模式)
+     * 0xAE: 显示关
+     * 0xAF: 显示开(正常模式)
      */
     Oled_Write_Cmd(0xAE);
 
     /* ================== 亮度设置 ===================*/
-    /* 设置对比度
-     * 0~255，值越大，亮度越大
+    /* 设置对比度控制寄存器
+     * 0x81: 对比度设置命令
+     * 0xFF: 对比度值(0~255)，值越大，亮度越大
      */
     Oled_Write_Cmd(0x81);
     Oled_Write_Cmd(0xFF);
 
-    /* 使用全显模式
-     * A4--->按照RAM内容显示
-     * A5--->全屏RAM内容显示
+    /* 设置显示模式
+     * 0xA4: 按照RAM内容显示(正常模式)
+     * 0xA5: 全屏RAM内容显示(测试模式)
      */
     Oled_Write_Cmd(0xA4);
 
-    /* 设置显示模式
-     * A6--->正常显示(0亮1暗)
-     * A7--->反显(1亮0暗)
+    /* 设置显示极性
+     * 0xA6: 正常显示(0亮1暗)
+     * 0xA7: 反显(1亮0暗)
      */
     Oled_Write_Cmd(0xA6);
 

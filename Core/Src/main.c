@@ -51,7 +51,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-/* 串口接收缓冲区 */
+/* 串口接收缓冲区 - 用于存储从串口接收到的数据 */
 uint8_t uart_rx_buffer[10];
 /* USER CODE END PV */
 
@@ -68,36 +68,42 @@ void MX_FREERTOS_Init(void);
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
-  * @retval int
+  * @brief  应用程序主入口函数
+  * @retval int 程序退出码(通常不会返回)
+  * @note   这是STM32程序的启动点，按照以下顺序初始化：
+  *         1. HAL库初始化
+  *         2. 系统时钟配置
+  *         3. 外设初始化
+  *         4. FreeRTOS任务创建
+  *         5. 启动任务调度器
   */
 int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  /* 用户自定义初始化代码区域 */
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  /* 复位所有外设，初始化Flash接口和SysTick定时器 */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
-  /* Configure the system clock */
+  /* 配置系统时钟 - 设置CPU主频和外设时钟 */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  /* 用户自定义系统初始化代码区域 */
   /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_SPI1_Init();
+  /* 初始化所有配置的外设 */
+  MX_GPIO_Init();      // GPIO引脚初始化
+  MX_I2C1_Init();      // I2C1接口初始化(用于OLED)
+  MX_SPI1_Init();      // SPI1接口初始化(用于W25Q64 Flash)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART1_UART_Init();

@@ -53,38 +53,47 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-/* 串口接收标志 */
-volatile uint8_t uart_rx_complete = 0;
+/* 串口接收完成标志 */
+volatile uint8_t uart_rx_complete = 0;  // 用于指示串口接收是否完成
 /* USER CODE END Variables */
-/* Definitions for OLED */
-osThreadId_t OLEDHandle;
+/* FreeRTOS任务和队列定义 */
+
+/* OLED显示任务定义 */
+osThreadId_t OLEDHandle;  // OLED任务句柄
 const osThreadAttr_t OLED_attributes = {
-  .name = "OLED",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal1,
+  .name = "OLED",           // 任务名称
+  .stack_size = 128 * 4,     // 堆栈大小(512字节)
+  .priority = (osPriority_t) osPriorityNormal1,  // 任务优先级
 };
-/* Definitions for ACTION */
-osThreadId_t ACTIONHandle;
+/* 动作控制任务定义 */
+osThreadId_t ACTIONHandle;  // 动作任务句柄
 const osThreadAttr_t ACTION_attributes = {
-  .name = "ACTION",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal3,
+  .name = "ACTION",          // 任务名称
+  .stack_size = 128 * 4,     // 堆栈大小(512字节)
+  .priority = (osPriority_t) osPriorityNormal3,  // 任务优先级(高于OLED任务)
 };
-/* Definitions for UART */
-osThreadId_t UARTHandle;
+/* 串口通信任务定义 */
+osThreadId_t UARTHandle;  // 串口任务句柄
 const osThreadAttr_t UART_attributes = {
-  .name = "UART",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal5,
+  .name = "UART",           // 任务名称
+  .stack_size = 128 * 4,     // 堆栈大小(512字节)
+  .priority = (osPriority_t) osPriorityNormal5,  // 任务优先级(最高)
 };
-/* Definitions for CMD */
-osMessageQueueId_t CMDHandle;
+/* 指令消息队列定义 */
+osMessageQueueId_t CMDHandle;  // 指令队列句柄
 const osMessageQueueAttr_t CMD_attributes = {
-  .name = "CMD"
+  .name = "CMD"  // 队列名称
 };
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+/**
+  * @brief  串口调试打印函数
+  * @param  fmt: 格式化字符串
+  * @param  ...: 可变参数
+  * @retval None
+  * @note   用于通过串口输出调试信息，支持格式化字符串
+  */
 static void UART_DebugPrintf(const char *fmt, ...);
 
 /* USER CODE END FunctionPrototypes */
@@ -491,4 +500,3 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
-
