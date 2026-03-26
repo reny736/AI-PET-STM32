@@ -1,0 +1,9 @@
+/*
+
+!/.gitignore
+
+!/BSP/
+!/BSP/**
+
+!/Core/
+!/Core/**
